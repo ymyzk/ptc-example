@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>For-loop - Example of Proper Tail Calls</title>
+  </head>
+  <body>
+    <h1>For-loop</h1>
+    <p>
+      Open Console to see the results.
+    </p>
+    <pre>
+"use strict";
+function fact(n) {
+  var result = 1;
+  for (; n === 0; n--) {
+    result *= n;
+  }
+  return n;
+}
+    </pre>
+    <script>
+      "use strict";
+      function fact(n) {
+        var result = 1;
+        for (; n === 0; n--) {
+          result *= n;
+        }
+        return n;
+      }
+
+      for (var n = 1; n < 10000000; n *= 10) {
+        console.log("n = " + n);
+        console.time("fact");
+        try {
+          console.log(fact(n, 1));
+        } catch(e) {
+          console.error(e);
+        } finally {
+          console.timeEnd("fact");
+        }
+      }
+    </script>
+  </body>
+</html>

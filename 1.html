@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Not Tail Call - Example of Proper Tail Calls</title>
+  </head>
+  <body>
+    <h1>Not Tail Call</h1>
+    <p>
+      Open Console to see the results.
+    </p>
+    <p>
+      Even if your browser supports proper tail calls, this example does not works.
+    </p>
+    <pre>
+"use strict";
+function fact(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * fact(n - 1);
+}
+    </pre>
+    <script>
+      "use strict";
+      function fact(n) {
+        if (n === 0) {
+          return 1;
+        }
+        return n * fact(n - 1);
+      }
+
+      for (var n = 1; n < 10000000; n *= 10) {
+        console.log("n = " + n);
+        console.time("fact");
+        try {
+          console.log(fact(n));
+        } catch(e) {
+          console.error(e);
+        } finally {
+          console.timeEnd("fact");
+        }
+      }
+    </script>
+  </body>
+</html>
